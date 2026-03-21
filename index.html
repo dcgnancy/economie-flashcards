@@ -476,6 +476,13 @@ kbd {
 }
 
 /* Bouton retour */
+#backSiteBtn {
+  padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--surface2); color: var(--muted);
+  font-family: 'DM Sans', sans-serif; font-size: .74rem;
+  text-decoration: none; transition: all .15s;
+}
+#backSiteBtn:hover { border-color: var(--accent); color: var(--accent); }
 #backHomeBtn {
   padding: 6px 14px; border-radius: 8px;
   border: 1px solid var(--border); background: var(--surface2);
@@ -784,6 +791,7 @@ kbd {
         <button class="mode-btn active" id="modeCard" onclick="setMode('card')">Cartes</button>
         <button class="mode-btn"        id="modeList" onclick="setMode('list')">Liste</button>
       </div>
+      <a href="https://dcgnancy.github.io" id="backSiteBtn" title="Retour au site">🏠 Site</a>
       <button id="backHomeBtn" onclick="goHome()">← Accueil</button>
       <button class="btn" onclick="shuffleCards()">🔀 Mélanger</button>
       <button class="btn" onclick="resetChapter()">↺ Restart</button>
