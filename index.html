@@ -661,11 +661,72 @@ kbd {
   font-style: italic;
 }
 
-@media (max-width:640px) {
-  .sidebar { display:none; }
-  .card-term { font-size:1.2rem; }
-  .card-face { padding:26px 18px; }
-  .hud-block { padding:3px 8px; min-width:44px; }
+/* ══════════════════════════════════════════════
+   RESPONSIVE — MOBILE (≤ 640px)
+══════════════════════════════════════════════ */
+@media (max-width: 640px) {
+
+  /* Sidebar masquée */
+  .sidebar { display: none; }
+
+  /* Header HUD compact */
+  header { padding: 8px 12px; gap: 8px; }
+  .hud { gap: 4px; }
+  .hud-block { padding: 3px 7px; min-width: 40px; }
+  .hud-val { font-size: 1rem; }
+  .hud-lbl { font-size: .52rem; }
+  header h1 { font-size: .95rem; }
+  .subtitle { display: none; }
+
+  /* Barre de contrôles */
+  .controls { padding: 7px 12px; gap: 6px; }
+  .chapter-title-bar { font-size: .78rem; min-width: 0; }
+  .btn { padding: 5px 9px; font-size: .7rem; }
+  .btn-nav { padding: 5px 9px; font-size: .7rem; }
+
+  /* Carte */
+  .card-term { font-size: 1.2rem; }
+  .card-face { padding: 22px 16px; }
+  .card-def  { font-size: .82rem; }
+
+  /* Mission bar */
+  #missionBar { padding: 5px 12px; font-size: .72rem; }
+  .m-bar-bg { width: 55px; }
+
+  /* Session progress */
+  #sessionProgress { padding: 5px 12px; font-size: .68rem; }
+
+  /* Score footer */
+  .score-summary { padding: 5px 12px; font-size: .68rem; gap: 10px; }
+
+  /* Page d'accueil */
+  #homePage { padding: 24px 14px 40px; gap: 28px; }
+  .home-intro h2 { font-size: 1.5rem; }
+  .how-to-play { padding: 20px 18px; }
+  .htp-list li { font-size: .78rem; gap: 8px; }
+
+  /* Ligne clavier masquée sur mobile (non pertinente sans clavier physique) */
+  .htp-list li.htp-keyboard { display: none; }
+
+  /* Grille chapitres */
+  .chapters-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .ch-card { padding: 14px 14px; }
+  .ch-name { font-size: .85rem; }
+
+  /* Overlays */
+  .ov-card { padding: 28px 22px; }
+  .ov-card h2 { font-size: 1.35rem; }
+  .ov-stats { gap: 8px; }
+  .ov-stat { padding: 10px; }
+  .ov-stat .v { font-size: 1.5rem; }
+
+  /* Sélecteur de mode */
+  .mode-select-card { padding: 26px 20px; }
+  .mode-btns { grid-template-columns: 1fr; }
+
+  /* Feedback buttons */
+  .fb-btn { font-size: .72rem; padding: 8px; }
+  .joker-btn { font-size: .7rem; padding: 8px 10px; }
 }
 </style>
 </head>
@@ -714,7 +775,7 @@ kbd {
       <li><span>🃏</span> <strong>2 Jokers</strong> — passe une carte sans pénalité (bouton ou touche <kbd>J</kbd>).</li>
       <li><span>🎯</span> <strong>Mission</strong> — une mission aléatoire par session : précision, combo, score ou rapidité.</li>
       <li><span>🎁</span> <strong>Questions bonus</strong> — 15% de chance qu'une carte soit bonus : bonne réponse = ×2 points !</li>
-      <li><span>⌨️</span> <strong>Clavier</strong> — <kbd>Espace</kbd> retourner · <kbd>1</kbd>/<kbd>↑</kbd> J'ai répondu · <kbd>2</kbd>/<kbd>↓</kbd> À revoir · <kbd>J</kbd> Joker</li>
+      <li class="htp-keyboard"><span>⌨️</span> <strong>Clavier</strong> — <kbd>Espace</kbd> retourner · <kbd>1</kbd>/<kbd>↑</kbd> J'ai répondu · <kbd>2</kbd>/<kbd>↓</kbd> À revoir · <kbd>J</kbd> Joker</li>
     </ul>
   </div>
 
