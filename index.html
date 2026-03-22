@@ -414,8 +414,6 @@ header h1 {
 .htp-list li {
   display: flex; align-items: baseline; gap: 10px;
   font-size: .84rem; color: var(--muted); line-height: 1.55;
-  flex-wrap: wrap;
-  min-width: 0;
 }
 .htp-list li span { font-size: 1rem; flex-shrink: 0; }
 .htp-list li strong { color: var(--text); font-weight: 500; }
@@ -425,23 +423,6 @@ kbd {
   border-radius: 5px; padding: 1px 6px;
   font-size: .72rem; font-family: monospace;
   color: var(--muted); vertical-align: middle;
-  white-space: normal;
-  word-break: break-word;
-}
-.htp-kbd-content {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 6px 10px;
-  min-width: 0;
-}
-.htp-kbd-group {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 3px;
-  white-space: nowrap;
-  font-size: .82rem;
-  color: var(--muted);
 }
 
 /* Titre section chapitres */
@@ -733,23 +714,11 @@ kbd {
     gap: 7px;
     line-height: 1.45;
     align-items: flex-start;
-    flex-wrap: wrap;
   }
   .htp-list li span { font-size: .88rem; margin-top: 1px; }
-  .htp-kbd-content {
-    gap: 5px 8px;
-    font-size: .74rem;
-  }
-  .htp-kbd-group {
-    font-size: .74rem;
-  }
-  kbd {
-    font-size: .68rem;
-    padding: 1px 5px;
-  }
 
   /* Éléments masqués sur mobile (raccourcis clavier, détails desktop) */
-  .htp-desktop { display: none; }
+  .htp-desktop { display: none !important; }
 
   /* Grille chapitres */
   .chapters-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -818,16 +787,7 @@ kbd {
       <li><span>🃏</span> <strong>2 Jokers</strong> — passe une carte sans pénalité.</li>
       <li><span>🎯</span> <strong>Mission</strong> — une mission aléatoire par session : précision, combo, score ou rapidité.</li>
       <li><span>🎁</span> <strong>Bonus ×2</strong> — 15% de chance qu'une carte soit bonus : bonne réponse = double points !</li>
-      <li class="htp-desktop">
-        <span>⌨️</span>
-        <span class="htp-kbd-content">
-          <strong>Clavier</strong>
-          <span class="htp-kbd-group"><kbd>Espace</kbd> retourner</span>
-          <span class="htp-kbd-group"><kbd>1</kbd> / <kbd>↑</kbd> J'ai répondu</span>
-          <span class="htp-kbd-group"><kbd>2</kbd> / <kbd>↓</kbd> À revoir</span>
-          <span class="htp-kbd-group"><kbd>J</kbd> Joker</span>
-        </span>
-      </li>
+      <li class="htp-desktop"><span>⌨️</span> <strong>Clavier</strong> — <kbd>Espace</kbd> retourner · <kbd>1</kbd>/<kbd>↑</kbd> J'ai répondu · <kbd>2</kbd>/<kbd>↓</kbd> À revoir · <kbd>J</kbd> Joker</li>
     </ul>
   </div>
 
@@ -1713,6 +1673,16 @@ function playSound(type) {
 }
 
 init();
+
+/* ════════════════════════════════════════════════════
+   MASQUAGE LIGNE CLAVIER SUR APPAREILS TACTILES
+════════════════════════════════════════════════════ */
+(function() {
+  const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  if (isTouch) {
+    document.querySelectorAll('.htp-desktop').forEach(el => el.style.display = 'none');
+  }
+})();
 </script>
 </body>
 </html>
