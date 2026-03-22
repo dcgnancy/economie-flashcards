@@ -207,8 +207,7 @@ header h1 {
 .card-back  { background: var(--surface2); border: 1px solid rgba(201,169,110,.2); transform: rotateY(180deg); }
 .card-back.flash-green { border-color: var(--green)!important; box-shadow: 0 0 26px rgba(94,203,138,.25)!important; }
 .card-back.flash-red   { border-color: var(--red)!important;   box-shadow: 0 0 26px rgba(224,107,107,.25)!important; }
-.card-face { position: relative; }
-.card-face:last-child { position: absolute; top:0; left:0; width:100%; }
+.card-face:last-child { position: absolute; top: 0; left: 0; width: 100%; }
 .card-lbl {
   font-size: .61rem; font-weight: 500; text-transform: uppercase;
   letter-spacing: 2px; color: var(--muted); margin-bottom: 14px;
@@ -475,27 +474,17 @@ kbd {
   font-size: .72rem; color: var(--muted);
 }
 
-/* Bouton retour */
-#backSiteBtn {
+/* Boutons de navigation */
+.btn-nav {
   padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border);
   background: var(--surface2); color: var(--muted);
   font-family: 'DM Sans', sans-serif; font-size: .74rem;
-  text-decoration: none; transition: all .15s;
+  text-decoration: none; cursor: pointer; transition: all .15s;
 }
-#backSiteBtn:hover { border-color: var(--accent); color: var(--accent); }
-#backHomeBtn {
-  padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border);
-  background: var(--surface2); color: var(--muted);
-  font-family: 'DM Sans', sans-serif; font-size: .74rem;
-  cursor: pointer; transition: all .15s;
-}
-#backHomeBtn:hover { border-color: var(--accent); color: var(--accent); }
+.btn-nav:hover { border-color: var(--accent); color: var(--accent); }
 
-::-webkit-scrollbar-track { background:transparent; }
-::-webkit-scrollbar-thumb { background:var(--border); border-radius:99px; }
-
-::-webkit-scrollbar-track { background:transparent; }
-::-webkit-scrollbar-thumb { background:var(--border); border-radius:99px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
 
 /* ══════════════════════════════════════════════
    CHOIX DE MODE
@@ -709,7 +698,7 @@ kbd {
 
   <div class="home-intro">
     <div style="margin-bottom:16px">
-      <a href="https://dcgnancy.github.io" style="font-size:.78rem; color:var(--muted); text-decoration:none; border:1px solid var(--border); background:var(--surface2); padding:5px 12px; border-radius:8px; transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">🏠 Accueil</a>
+      <a href="https://dcgnancy.github.io" class="btn-nav">🏠 Accueil</a>
     </div>
     <h2>📚 Flashcards Économie DCG</h2>
     <p>Révise les 297 définitions des 18 chapitres d'économie du DCG sous forme de jeu.</p>
@@ -794,8 +783,8 @@ kbd {
         <button class="mode-btn active" id="modeCard" onclick="setMode('card')">Cartes</button>
         <button class="mode-btn"        id="modeList" onclick="setMode('list')">Liste</button>
       </div>
-      <a href="https://dcgnancy.github.io" id="backSiteBtn" title="Retour au site">🏠 Site</a>
-      <button id="backHomeBtn" onclick="goHome()">← Accueil</button>
+      <a href="https://dcgnancy.github.io" id="backSiteBtn" class="btn-nav" title="Retour au site">🏠 Site</a>
+      <button id="backHomeBtn" class="btn-nav" onclick="goHome()">← Accueil</button>
       <button class="btn" onclick="shuffleCards()">🔀 Mélanger</button>
       <button class="btn" onclick="resetChapter()">↺ Restart</button>
     </div>
@@ -993,6 +982,7 @@ function goHome() {
   document.getElementById('gameApp').style.display    = 'none';
   document.getElementById('homePage').classList.remove('hidden');
   gameIsOver = false;
+  mode = 'card';
 }
 
 
@@ -1082,13 +1072,11 @@ function nextCard() { stopTimer(); if (currentIndex < cards.length-1) { currentI
 
 /* Passer une carte manuellement = mauvaise réponse (pénalité identique à une erreur) */
 function skipCard() {
-  if (gameIsOver || !isFlipped === false) {
-    // Si la carte n'est pas encore retournée, la retourner d'abord puis marquer faux
-    if (!isFlipped) {
-      document.getElementById('flashcard').classList.add('flipped');
-      isFlipped = true;
-      document.getElementById('feedbackRow').style.display = 'flex';
-    }
+  if (gameIsOver) return;
+  if (!isFlipped) {
+    document.getElementById('flashcard').classList.add('flipped');
+    isFlipped = true;
+    document.getElementById('feedbackRow').style.display = 'flex';
   }
   toast('⏭️ Carte passée = erreur −5 pts', 'red');
   markCard(false);
@@ -1207,9 +1195,6 @@ function markCard(correct, isTimeout = false) {
 }
 
 /* ════════════════════════════════════════════════════
-   JOKER
-════════════════════════════════════════════════════ */
-/* ════════════════════════════════════════════════════
    JOKER — fonctionne à tout moment (carte retournée ou non)
 ════════════════════════════════════════════════════ */
 function useJoker() {
@@ -1262,7 +1247,7 @@ function updateHUD() {
 }
 
 /* Affiche les cœurs — anime le dernier cœur perdu */
-let _prevLives = 3;
+let _prevLives = 3; // Suivi des vies pour l'animation de perte de cœur
 function renderHearts() {
   const el = document.getElementById('heartsDisplay');
   if (lives < _prevLives) {
